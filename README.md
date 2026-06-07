@@ -24,7 +24,7 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 
 | Render 3D / PCB                               | PCB diseñada                             | Placa montada                                         |
 | --------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
-| ![Render 3D](hardware/imagenes/placa_frontal.jpg) | ![PCB](hardware/imagenes/diseño.jpg) | ![Placa montada](documentos\Evidencias_Pruebas\capturas) |
+| ![Render 3D](Hardware\V3_Estacion_Nivel\imagenesplaca_frontal.jpg) | ![PCB](hardware/imagenes/diseño.jpg) | ![Placa montada](documentos\Evidencias_Pruebas\capturas) |
 
 ---
 
