@@ -24,7 +24,7 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 
 | Render 3D / PCB                               | PCB diseñada                             | Placa montada                                         |
 | --------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
-| ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](documentos/Evidencias_Pruebas/capturas/Placa.jpg) |
+| ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](Hardware/V3_Estacion_Nivel/imagenes/Partes.png) |
 
 ---
 
@@ -51,7 +51,7 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 ## Estructura del repositorio
 
 ```text
-Proyecto3__Sistema_de_adquisiscion_de_Nivel/
+Sistema_de_adquisicion_y_monitoreo_de_nivel/
 │
 ├── Firmware_Final/
 │   │
