@@ -27,8 +27,6 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 | ------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- |
 | ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB diseñada](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](Hardware/V3_Estacion_Nivel/imagenes/Partes.png) |
 
-> Nota: GitHub distingue mayúsculas, minúsculas y acentos. Si la imagen `diseño.jpg` no aparece, se recomienda renombrarla como `diseno.jpg` y actualizar la ruta.
-
 ---
 
 ## Características principales
