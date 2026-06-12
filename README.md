@@ -3,25 +3,33 @@
 
 ## Estación de medición de nivel — Arroyo Mburicao
 
+---
+
 ## Descripción
 
-Sistema de adquisición y monitoreo de nivel de agua desarrollado para medir el nivel de un arroyo mediante un sensor de nivel con comunicación RS485.  
+Sistema de adquisición y monitoreo de nivel de agua desarrollado para medir el nivel de un arroyo mediante un sensor de nivel con comunicación RS485.
+
 El sistema utiliza una PCB propia basada en ESP32-S3, almacenamiento local en tarjeta microSD, reloj de tiempo real DS3231M y transmisión de datos mediante un módem DTU GPRS hacia un servidor remoto.
 
 Cada medición es registrada con un `timestamp` generado a partir del RTC y se guarda localmente en la tarjeta microSD. Luego, el dato es enviado al servidor con la trama:
 
-
+```text
 d=timestamp,nivel
-
+````
 
 Además, el sistema implementa un mecanismo **Store and Forward**, que permite conservar los datos no enviados en caso de falla de comunicación y reenviarlos automáticamente cuando la conexión se restablece.
 
+---
+
 ## Imágenes del hardware
 
-| Render 3D / PCB                               | PCB diseñada                             | Placa montada                                         |
-| --------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
-| ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](Hardware/V3_Estacion_Nivel/imagenes/Partes.png) |
+| Render 3D / PCB                                                     | PCB diseñada                                                    | Placa montada                                                    |
+| ------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- |
+| ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB diseñada](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](Hardware/V3_Estacion_Nivel/imagenes/Partes.png) |
 
+> Nota: GitHub distingue mayúsculas, minúsculas y acentos. Si la imagen `diseño.jpg` no aparece, se recomienda renombrarla como `diseno.jpg` y actualizar la ruta.
+
+---
 
 ## Características principales
 
@@ -37,13 +45,16 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 * Alimentación de **5 V** para el ESP32-S3.
 * Regulación interna de **3.3 V** para periféricos.
 * Indicadores LED de alimentación y funcionamiento.
+* LED azul conectado al **GPIO21** como indicador de lectura válida.
 * Mecanismo **Store and Forward** para evitar pérdida de datos.
 * Reenvío automático de datos pendientes.
-* Repositorio organizado en firmware final, pruebas, hardware y evidencias.
+* Repositorio organizado en documentación, hardware, software y evidencias.
 
+---
 
 ## Estructura del repositorio
 
+```text
 Sistema de adquisicion y monitoreo de nivel/
 │
 ├── documentos/
@@ -52,6 +63,7 @@ Sistema de adquisicion y monitoreo de nivel/
 │   │   │
 │   │   ├── capturas/
 │   │   │   ├── Placa.jpg
+│   │   │   ├── Partes.png
 │   │   │   ├── store_forward.png
 │   │   │   ├── datalog_csv.png
 │   │   │   └── ...
@@ -75,7 +87,8 @@ Sistema de adquisicion y monitoreo de nivel/
 │   │   ├── imagenes/
 │   │   │   ├── placa_frontal.jpg
 │   │   │   ├── placa_posterior.jpg
-│   │   │   ├── diseno.jpg
+│   │   │   ├── diseño.jpg
+│   │   │   ├── Partes.png
 │   │   │   └── ...
 │   │   │
 │   │   ├── planos/
@@ -137,11 +150,10 @@ Sistema de adquisicion y monitoreo de nivel/
 │       │   ├── sdcard/
 │       │   │   ├── sdcard.c
 │       │   │   └── include/
-│       │   │             └──sdcard.h
+│       │   │       └── sdcard.h
 │       │   │
 │       │   └── sensor_rs485/
-│       │       └──sensor_rs485.c
-│       │       
+│       │       └── sensor_rs485.c
 │       │
 │       ├── src/
 │       │   └── main.c
@@ -153,29 +165,37 @@ Sistema de adquisicion y monitoreo de nivel/
 ├── .gitattributes
 ├── LICENSE
 └── README.md
+```
+
+---
+
 ## Hardware
 
 ### Diagrama de bloques
 
+```text
                     Mini UPS
              ┌────────┼────────┐
              │        │        │
-            12 V     12 V      5 V to 3,3V
+            12 V     12 V      5 V
              │        │        │
              ▼        ▼        ▼
      Sensor de     Módem     ESP32-S3
      nivel RS485   DTU       Control principal
              │        │        │
-             │        │        ├── RTC DS3231M  ── I2C
-             │        │        ├── microSD      ── SPI
-             │        │        ├── LED indicador ─ GPIO
-             │        │        ├── Sensor nivel ─ RS485 / UART1
-             │        │        └── Módem DTU    ─ RS485 / UART2
+             │        │        ├── RTC DS3231M   ── I2C
+             │        │        ├── microSD       ── SPI
+             │        │        ├── LED indicador ── GPIO21
+             │        │        ├── Sensor nivel  ── RS485 / UART1
+             │        │        └── Módem DTU     ── RS485 / UART2
              │        │
              │        └────── Internet / GPRS
              │                 │
              ▼                 ▼
         Medición de nivel   Servidor remoto
+```
+
+---
 
 ## Alimentación
 
@@ -232,10 +252,14 @@ El firmware del ESP32-S3 está desarrollado en lenguaje C utilizando **PlatformI
 ## Ciclo de operación
 
 El ciclo principal del sistema se resume en:
-Medir → Validar → Guardar → Enviar → Confirmar → Reenviar si falló
 
+```text
+Medir → Validar → Guardar → Enviar → Confirmar → Reenviar si falló
+```
 
 ### Flujo general
+
+```text
 Inicio
   ↓
 Inicializar RTC, SD, sensor RS485, módem DTU, LED y tarea de pendientes
@@ -270,7 +294,9 @@ Enviar trama mediante módem DTU
          Queda pendiente para Store and Forward
             ↓
          Esperar próximo intervalo
+```
 
+---
 
 ## Formato de datos
 
@@ -278,55 +304,63 @@ Enviar trama mediante módem DTU
 
 Archivo:
 
+```text
 datalog.csv
-
+```
 
 Formato:
 
+```text
 timestamp,nivel
-
+```
 
 Ejemplo:
 
+```text
 1779617700,0.931
+```
 
+---
 
 ### Datos pendientes
 
 Archivo:
 
-
+```text
 temp.csv
-
+```
 
 Formato:
 
-
+```text
 timestamp,nivel
-
+```
 
 Este archivo almacena temporalmente los datos que no pudieron ser enviados al servidor.
 
-
+---
 
 ### Trama enviada al servidor
 
 Formato:
 
-
+```text
 d=timestamp,nivel
-
+```
 
 Ejemplo:
 
-
+```text
 d=1779617700,0.931
-
+```
 
 Respuesta esperada del servidor:
 
+```text
 OK
+```
 
+---
 
 ## Store and Forward
 
@@ -343,6 +377,7 @@ Funcionamiento:
 7. Cuando la comunicación se restablece, los datos se reenvían automáticamente.
 8. Al recibir `OK`, el dato pendiente se elimina de `temp.csv`.
 
+---
 
 ## Pruebas realizadas
 
@@ -355,7 +390,7 @@ Funcionamiento:
 | Sistema integrado | Lectura, almacenamiento y transmisión completa      | Correcto |
 | Store and Forward | Guardado y reenvío de datos pendientes              | Correcto |
 
-
+---
 
 ## Resultados
 
@@ -370,54 +405,63 @@ Durante las pruebas finales se verificó que el sistema puede:
 * Reenviar automáticamente datos pendientes.
 * Mantener el timestamp original de cada medición reenviada.
 
-
+---
 
 ## Evidencias
 
 Las evidencias del funcionamiento del sistema se encuentran en:
 
+```text
+documentos/Evidencias_Pruebas/
+```
 
-Evidencias_Pruebas/
+Estructura recomendada:
 
-
-Contenido recomendado:
-
-Evidencias_Pruebas/
+```text
+documentos/Evidencias_Pruebas/
 │
-├── lectura_sensor/
-│   └── README.md
+├── capturas/
+│   ├── Placa.jpg
+│   ├── Partes.png
+│   ├── datalog_csv.png
+│   ├── store_forward.png
+│   └── ...
 │
-├── prueba_rtc/
-│   └── README.md
-│
-├── prueba_sdcard/
-│   └── README.md
-│
-├── prueba_modem/
-│   └── README.md
-│
-├── prueba_integrada/
-│   └── README.md
-│
-└── store_and_forward/
-    └── README.md
-
+└── videos/
+    ├── prueba_sensor.mp4
+    ├── prueba_sdcard.mp4
+    ├── prueba_modem.mp4
+    ├── prueba_integrada.mp4
+    └── ...
+```
 
 Cada carpeta puede incluir capturas, logs y enlaces a videos de prueba.
 
+---
 
 ## Costos
 
-La lista de materiales y costos puede registrarse en:
+La lista de materiales y costos se encuentra en la carpeta de hardware del proyecto.
 
-Hardware_Kicad/bom/
+Ruta sugerida:
 
+```text
+Hardware/V3_Estacion_Nivel/
+```
 
-Archivo recomendado:
+Archivo de costos o BOM:
 
+```text
+Estacion_Nivel_V3.csv
+```
 
-BOM_Estacion_Nivel.xlsx
+También pueden incluirse archivos adicionales dentro de:
 
+```text
+Hardware/V3_Estacion_Nivel/fabrication_files_G10/
+```
+
+---
 
 ## Requisitos de desarrollo
 
@@ -431,7 +475,7 @@ BOM_Estacion_Nivel.xlsx
 * RTC DS3231M
 * Mini UPS
 
-
+---
 
 ## Compilación y carga
 
@@ -449,17 +493,17 @@ También puede utilizarse el entorno gráfico de PlatformIO en Visual Studio Cod
 
 ## Equipo
 
-| Integrante                       |          Contacto           |
-| -------------------------------- | --------------------------- |
-| Héctor Dejesús Velázquez Ojeda   | hvelazquez@fiuna.edu.py     |
-| Mathias Ramón Aguilar DelValle   | maguilar@fiuna.edu.py       |
-| Mauricio Iván Tullo Estigarribia | mtullo@fiuna.edu.py         |
+| Integrante                       | Contacto                                                  |
+| -------------------------------- | --------------------------------------------------------- |
+| Héctor Dejesús Velázquez Ojeda   | [hvelazquez@fiuna.edu.py](mailto:hvelazquez@fiuna.edu.py) |
+| Mathias Ramón Aguilar DelValle   | [maguilar@fiuna.edu.py](mailto:maguilar@fiuna.edu.py)     |
+| Mauricio Iván Tullo Estigarribia | [mtullo@fiuna.edu.py](mailto:mtullo@fiuna.edu.py)         |
 
 Institución: Universidad Nacional de Asunción — Facultad de Ingeniería
 Carrera: Ingeniería Mecatrónica
 Cátedra: Proyecto 3
 
-
+---
 
 ## Licencia
 
@@ -467,9 +511,14 @@ Cátedra: Proyecto 3
 * Firmware: MIT
 * Documentación: MIT
 
+---
 
 ## Estado del proyecto
 
 El proyecto se encuentra en etapa funcional, con pruebas aisladas e integradas realizadas correctamente.
+
 El sistema permite adquirir, almacenar y transmitir datos de nivel de agua, incorporando respaldo local y reenvío automático ante fallas de comunicación.
+
+```
+```
 
