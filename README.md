@@ -3,8 +3,6 @@
 
 ## Estación de medición de nivel — Arroyo Mburicao
 
----
-
 ## Descripción
 
 Sistema de adquisición y monitoreo de nivel de agua desarrollado para medir el nivel de un arroyo mediante un sensor de nivel con comunicación RS485.  
@@ -12,13 +10,11 @@ El sistema utiliza una PCB propia basada en ESP32-S3, almacenamiento local en ta
 
 Cada medición es registrada con un `timestamp` generado a partir del RTC y se guarda localmente en la tarjeta microSD. Luego, el dato es enviado al servidor con la trama:
 
-```text
+
 d=timestamp,nivel
-````
+
 
 Además, el sistema implementa un mecanismo **Store and Forward**, que permite conservar los datos no enviados en caso de falla de comunicación y reenviarlos automáticamente cuando la conexión se restablece.
-
----
 
 ## Imágenes del hardware
 
@@ -26,7 +22,6 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 | --------------------------------------------- | ---------------------------------------- | ----------------------------------------------------- |
 | ![Render 3D](Hardware/V3_Estacion_Nivel/imagenes/placa_frontal.jpg) | ![PCB](Hardware/V3_Estacion_Nivel/imagenes/diseño.jpg) | ![Placa montada](Hardware/V3_Estacion_Nivel/imagenes/Partes.png) |
 
----
 
 ## Características principales
 
@@ -46,89 +41,126 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 * Reenvío automático de datos pendientes.
 * Repositorio organizado en firmware final, pruebas, hardware y evidencias.
 
----
 
 ## Estructura del repositorio
 
-```text
-Sistema_de_adquisicion_y_monitoreo_de_nivel/
+Sistema de adquisicion y monitoreo de nivel/
 │
-├── Firmware_Final/
+├── documentos/
 │   │
-│   ├── components/
+│   ├── Evidencias_Pruebas/
 │   │   │
-│   │   ├── led/
-│   │   │   ├── led_blink.c
-│   │   │   └── led_blink.h
+│   │   ├── capturas/
+│   │   │   ├── Placa.jpg
+│   │   │   ├── store_forward.png
+│   │   │   ├── datalog_csv.png
+│   │   │   └── ...
 │   │   │
-│   │   ├── modem_dtu/
-│   │   │   ├── modem_dtu.c
-│   │   │   └── modem_dtu.h
+│   │   └── videos/
+│   │       ├── prueba_sensor.mp4
+│   │       ├── prueba_sdcard.mp4
+│   │       ├── prueba_modem.mp4
+│   │       ├── prueba_integrada.mp4
+│   │       └── ...
+│   │
+│   └── reportes/
+│       ├── informe_parcial/
+│       ├── informe_final/
+│       └── ...
+│
+├── Hardware/
+│   │
+│   ├── V3_Estacion_Nivel/
 │   │   │
-│   │   ├── reloj/
-│   │   │   ├── reloj.c
-│   │   │   └── reloj.h
+│   │   ├── imagenes/
+│   │   │   ├── placa_frontal.jpg
+│   │   │   ├── placa_posterior.jpg
+│   │   │   ├── diseno.jpg
+│   │   │   └── ...
 │   │   │
-│   │   ├── sdcard/
-│   │   │   ├── sdcard.c
-│   │   │   └── sdcard.h
+│   │   ├── planos/
+│   │   ├── step/
+│   │   ├── Librerias Kicad/
+│   │   └── fabrication_files_G10/
+│   │
+│   └── Estacion_Nivel_V3.csv
+│
+├── Software/
+│   │
+│   ├── Firmware_Final/
 │   │   │
-│   │   └── sensor_rs485/
-│   │       ├── sensor_rs485.c
-│   │       └── sensor_rs485.h
+│   │   ├── components/
+│   │   │   │
+│   │   │   ├── led/
+│   │   │   │   ├── led_blink.c
+│   │   │   │   └── led_blink.h
+│   │   │   │
+│   │   │   ├── modem_dtu/
+│   │   │   │   ├── modem_dtu.c
+│   │   │   │   └── modem_dtu.h
+│   │   │   │
+│   │   │   ├── reloj/
+│   │   │   │   ├── reloj.c
+│   │   │   │   └── reloj.h
+│   │   │   │
+│   │   │   ├── sdcard/
+│   │   │   │   ├── sdcard.c
+│   │   │   │   └── sdcard.h
+│   │   │   │
+│   │   │   └── sensor_rs485/
+│   │   │       ├── sensor_rs485.c
+│   │   │       └── sensor_rs485.h
+│   │   │
+│   │   ├── src/
+│   │   │   └── main.c
+│   │   │
+│   │   ├── CMakeLists.txt
+│   │   ├── platformio.ini
+│   │   └── sdkconfig.freenove_esp32_s3_wroom
 │   │
-│   ├── src/
-│   │   └── main.c
-│   │
-│   ├── CMakeLists.txt
-│   ├── platformio.ini
-│   └── sdkconfig.freenove_esp32_s3_wroom
+│   └── Firmware_Pruebas/
+│       │
+│       ├── components/
+│       │   │
+│       │   ├── led/
+│       │   │   ├── led_blink.c
+│       │   │   └── led_blink.h
+│       │   │
+│       │   ├── modem_dtu/
+│       │   │   ├── dtu.c
+│       │   │   └── dtu.h
+│       │   │
+│       │   ├── reloj/
+│       │   │   ├── reloj.c
+│       │   │   └── reloj.h
+│       │   │
+│       │   ├── sdcard/
+│       │   │   ├── sdcard.c
+│       │   │   └── include/
+│       │   │             └──sdcard.h
+│       │   │
+│       │   └── sensor_rs485/
+│       │       └──sensor_rs485.c
+│       │       
+│       │
+│       ├── src/
+│       │   └── main.c
+│       │
+│       ├── CMakeLists.txt
+│       ├── platformio.ini
+│       └── sdkconfig.freenove_esp32_s3_wroom
 │
-├── Firmware_Pruebas/
-│   │
-│   ├── test_sensor_rs485/
-│   ├── test_rtc/
-│   ├── test_sdcard/
-│   ├── test_modem_dtu/
-│   └── test_led/
-│
-├── Hardware_Kicad/
-│   │
-│   ├── esquematico/
-│   ├── pcb/
-│   ├── gerbers/
-│   ├── bom/
-│   └── imagenes/
-│
-├── Evidencias_Pruebas/
-│   │
-│   ├── lectura_sensor/
-│   ├── prueba_rtc/
-│   ├── prueba_sdcard/
-│   ├── prueba_modem/
-│   ├── prueba_integrada/
-│   └── store_and_forward/
-│
-├── docs/
-│   │
-│   ├── informe_parcial/
-│   ├── informe_final/
-│   └── fotos/
-│
+├── .gitattributes
+├── LICENSE
 └── README.md
-```
-
----
-
 ## Hardware
 
 ### Diagrama de bloques
 
-```text
                     Mini UPS
              ┌────────┼────────┐
              │        │        │
-            12 V     12 V      5 V
+            12 V     12 V      5 V to 3,3V
              │        │        │
              ▼        ▼        ▼
      Sensor de     Módem     ESP32-S3
@@ -144,9 +176,6 @@ Sistema_de_adquisicion_y_monitoreo_de_nivel/
              │                 │
              ▼                 ▼
         Medición de nivel   Servidor remoto
-```
-
----
 
 ## Alimentación
 
@@ -203,14 +232,10 @@ El firmware del ESP32-S3 está desarrollado en lenguaje C utilizando **PlatformI
 ## Ciclo de operación
 
 El ciclo principal del sistema se resume en:
-
-```text
 Medir → Validar → Guardar → Enviar → Confirmar → Reenviar si falló
-```
+
 
 ### Flujo general
-
-```text
 Inicio
   ↓
 Inicializar RTC, SD, sensor RS485, módem DTU, LED y tarea de pendientes
@@ -245,9 +270,7 @@ Enviar trama mediante módem DTU
          Queda pendiente para Store and Forward
             ↓
          Esperar próximo intervalo
-```
 
----
 
 ## Formato de datos
 
@@ -255,63 +278,55 @@ Enviar trama mediante módem DTU
 
 Archivo:
 
-```text
 datalog.csv
-```
+
 
 Formato:
 
-```text
 timestamp,nivel
-```
+
 
 Ejemplo:
 
-```text
 1779617700,0.931
-```
 
----
 
 ### Datos pendientes
 
 Archivo:
 
-```text
+
 temp.csv
-```
+
 
 Formato:
 
-```text
+
 timestamp,nivel
-```
+
 
 Este archivo almacena temporalmente los datos que no pudieron ser enviados al servidor.
 
----
+
 
 ### Trama enviada al servidor
 
 Formato:
 
-```text
+
 d=timestamp,nivel
-```
+
 
 Ejemplo:
 
-```text
+
 d=1779617700,0.931
-```
+
 
 Respuesta esperada del servidor:
 
-```text
 OK
-```
 
----
 
 ## Store and Forward
 
@@ -328,7 +343,6 @@ Funcionamiento:
 7. Cuando la comunicación se restablece, los datos se reenvían automáticamente.
 8. Al recibir `OK`, el dato pendiente se elimina de `temp.csv`.
 
----
 
 ## Pruebas realizadas
 
@@ -341,7 +355,7 @@ Funcionamiento:
 | Sistema integrado | Lectura, almacenamiento y transmisión completa      | Correcto |
 | Store and Forward | Guardado y reenvío de datos pendientes              | Correcto |
 
----
+
 
 ## Resultados
 
@@ -356,19 +370,18 @@ Durante las pruebas finales se verificó que el sistema puede:
 * Reenviar automáticamente datos pendientes.
 * Mantener el timestamp original de cada medición reenviada.
 
----
+
 
 ## Evidencias
 
 Las evidencias del funcionamiento del sistema se encuentran en:
 
-```text
+
 Evidencias_Pruebas/
-```
+
 
 Contenido recomendado:
 
-```text
 Evidencias_Pruebas/
 │
 ├── lectura_sensor/
@@ -388,41 +401,23 @@ Evidencias_Pruebas/
 │
 └── store_and_forward/
     └── README.md
-```
+
 
 Cada carpeta puede incluir capturas, logs y enlaces a videos de prueba.
 
----
-
-## Dashboard
-
-El sistema actualmente envía los datos hacia un servidor remoto.
-Como mejora futura se propone implementar un dashboard web para visualizar:
-
-* Nivel actual.
-* Histórico de mediciones.
-* Gráficas temporales.
-* Estado de conexión.
-* Alertas por nivel crítico.
-* Ubicación de la estación.
-
----
 
 ## Costos
 
 La lista de materiales y costos puede registrarse en:
 
-```text
 Hardware_Kicad/bom/
-```
+
 
 Archivo recomendado:
 
-```text
-BOM_Estacion_Nivel.xlsx
-```
 
----
+BOM_Estacion_Nivel.xlsx
+
 
 ## Requisitos de desarrollo
 
@@ -436,7 +431,7 @@ BOM_Estacion_Nivel.xlsx
 * RTC DS3231M
 * Mini UPS
 
----
+
 
 ## Compilación y carga
 
@@ -454,17 +449,17 @@ También puede utilizarse el entorno gráfico de PlatformIO en Visual Studio Cod
 
 ## Equipo
 
-| Integrante                       | Contacto |
-| -------------------------------- | -------- |
-| Héctor Dejesús Velázquez Ojeda   | --       |
-| Mathias Ramón Aguilar DelValle   | --       |
-| Mauricio Iván Tullo Estigarribia | --       |
+| Integrante                       |          Contacto           |
+| -------------------------------- | --------------------------- |
+| Héctor Dejesús Velázquez Ojeda   | hvelazquez@fiuna.edu.py     |
+| Mathias Ramón Aguilar DelValle   | maguilar@fiuna.edu.py       |
+| Mauricio Iván Tullo Estigarribia | mtullo@fiuna.edu.py         |
 
 Institución: Universidad Nacional de Asunción — Facultad de Ingeniería
 Carrera: Ingeniería Mecatrónica
 Cátedra: Proyecto 3
 
----
+
 
 ## Licencia
 
@@ -472,12 +467,9 @@ Cátedra: Proyecto 3
 * Firmware: MIT
 * Documentación: MIT
 
----
 
 ## Estado del proyecto
 
 El proyecto se encuentra en etapa funcional, con pruebas aisladas e integradas realizadas correctamente.
 El sistema permite adquirir, almacenar y transmitir datos de nivel de agua, incorporando respaldo local y reenvío automático ante fallas de comunicación.
 
-```
-```
