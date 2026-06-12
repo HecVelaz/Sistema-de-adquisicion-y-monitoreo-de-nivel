@@ -495,7 +495,7 @@ También puede utilizarse el entorno gráfico de PlatformIO en Visual Studio Cod
 | -------------------------------- | --------------------------------------------------------- |
 | Héctor Dejesús Velázquez Ojeda   | [hvelazquez@fiuna.edu.py](mailto:hvelazquez@fiuna.edu.py) |
 | Mathias Ramón Aguilar DelValle   | [maguilar@fiuna.edu.py](mailto:maguilar@fiuna.edu.py)     |
-| Mauricio Iván Tullo Estigarribia | [mtullo@fiuna.edu.py](mailto:mtullo@fiuna.edu.py)         |
+| Mauricio Iván Tullo Estigarribia | [mauritullo@fiuna.edu.py](mailto:mtullo@fiuna.edu.py)         |
 
 Institución: Universidad Nacional de Asunción — Facultad de Ingeniería
 Carrera: Ingeniería Mecatrónica
