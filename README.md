@@ -504,8 +504,6 @@ Cátedra: Proyecto 3
 ---
 
 ## Licencia
-
-* Hardware: CERN-OHL-P v2
 * Firmware: MIT
 * Documentación: MIT
 
