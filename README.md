@@ -13,7 +13,7 @@ El sistema utiliza una PCB propia basada en ESP32-S3, almacenamiento local en ta
 
 Cada medición es registrada con un `timestamp` generado a partir del RTC y se guarda localmente en la tarjeta microSD. Luego, el dato es enviado al servidor con la trama:
 
-```text
+```
 d=timestamp,nivel
 ````
 
