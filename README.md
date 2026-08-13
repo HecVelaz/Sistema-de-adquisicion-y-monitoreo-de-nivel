@@ -20,7 +20,10 @@ d=timestamp,nivel
 Además, el sistema implementa un mecanismo **Store and Forward**, que permite conservar los datos no enviados en caso de falla de comunicación y reenviarlos automáticamente cuando la conexión se restablece.
 
 ---
+## Datos obtenidos con el sensor 
+Seguimiento de los valores obtenidos por el prototipo durante aproximadamente 9 meses de seguido
 
+![Imagen grafana](documentos/Evidencias_Pruebas/capturas/grafico_completo.png)
 ## Imágenes del hardware
 
 | Render 3D / PCB                                                     | PCB diseñada                                                    | Placa montada                                                    |
