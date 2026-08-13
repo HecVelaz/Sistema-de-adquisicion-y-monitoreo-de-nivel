@@ -21,7 +21,7 @@ Además, el sistema implementa un mecanismo **Store and Forward**, que permite c
 
 ---
 ## Datos obtenidos con el sensor 
-Seguimiento de los valores obtenidos por el prototipo durante aproximadamente 9 meses de seguido
+Seguimiento de los valores obtenidos por el prototipo durante aproximadamente 9 meses de seguido, datos obtenidos en la cuenca del arroyo mburicao Colegio San Ignacio de Loyolas.
 
 ![Imagen grafana](documentos/Evidencias_Pruebas/capturas/grafico_completo.png)
 ## Imágenes del hardware
